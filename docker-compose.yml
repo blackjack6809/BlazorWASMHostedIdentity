@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  blazorwasmhostedidentiy.server:
+    image: ${DOCKER_REGISTRY-}blazorwasmhostedidentiyserver
+    build:
+      context: .
+      dockerfile: BlazorWasmHostedIdentiy/Server/Dockerfile
+
+    environment:
+      - "ConnectionStrings__DefaultConnection=Server=db;Database=BwhiDB;User=sa;Password=Admin@123;MultipleActiveResultSets=true"
+      - "IdentityServer__Key__Type=Development"
+      - "ASPNETCORE_Kestrel__Certificates__Default__Password=Admin@123"
+      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      - db
+    restart: on-failure
+
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      - "SA_PASSWORD=Admin@123"
+      - "ACCEPT_EULA=Y"
+    ports:
+      - "1433:1433"
+    restart: on-failure
