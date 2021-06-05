@@ -9,6 +9,7 @@
 
 
 #1. add appsettings.Production.json with
+   
     "IdentityServer": {
     "Key": {
       "Type": "Store",
@@ -18,6 +19,7 @@
     }
 
 #2. Program.cs 
+    
     public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -55,9 +57,12 @@
         }
 
 #2. docker-compose.yml
+    
     - clear docker-compose.override.yml
+    
     - edit docker-compose.yml
-        version: '3.4'
+        
+    version: '3.4'
 
         services:
           blazorwasmhostedidentiy.server:
@@ -91,7 +96,8 @@
 
 #3. startup.cs (configure SameSite and Secure options on Cookies generate by IS4)
     - https://github.com/IdentityServer/IdentityServer4/issues/4165
-	- services.Configure<CookieAuthenticationOptions>(IdentityServerConstants.DefaultCookieAuthenticationScheme, options =>
+	
+    - services.Configure<CookieAuthenticationOptions>(IdentityServerConstants.DefaultCookieAuthenticationScheme, options =>
             {
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
