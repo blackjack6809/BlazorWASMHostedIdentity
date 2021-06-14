@@ -11,11 +11,12 @@
 #1. add appsettings.Production.json with
    
     "IdentityServer": {
-    "Key": {
-      "Type": "Store",
-      "StoreName": "My",
-      "StoreLocation": "CurrentUser",
-      "Name": "CN=MyApplication"
+	    "Key": {
+	      "Type": "Store",
+	      "StoreName": "My",
+	      "StoreLocation": "CurrentUser",
+	      "Name": "CN=MyApplication"
+	    }
     }
 
 #2. Program.cs 
